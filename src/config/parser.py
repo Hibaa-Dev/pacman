@@ -22,74 +22,54 @@ class Parser:
             "levels": [
                 {
                     "name": "level01",
-                    "width": 14,
-                    "height": 10,
-                    "pacgum": 42,
-                    "seed": 42,
-                    "level_max_time": 90
+                    "width": 14, "height": 10,
+                    "pacgum": 42, "seed": 42,
+                    "level_max_time": 100
                 },
                 {
                     "name": "level02",
-                    "width": 16,
-                    "height": 12,
-                    "pacgum": 55,
-                    "level_max_time": 90
+                    "width": 14, "height": 10,
+                    "pacgum": 42, "level_max_time": 90
                 },
                 {
                     "name": "level03",
-                    "width": 18,
-                    "height": 14,
-                    "pacgum": 70,
-                    "level_max_time": 90
+                    "width": 14, "height": 10,
+                    "pacgum": 42, "level_max_time": 90
                 },
                 {
                     "name": "level04",
-                    "width": 20,
-                    "height": 14,
-                    "pacgum": 85,
-                    "level_max_time": 85
+                    "width": 14, "height": 10,
+                    "pacgum": 42, "level_max_time": 90
                 },
                 {
                     "name": "level05",
-                    "width": 20,
-                    "height": 16,
-                    "pacgum": 100,
-                    "level_max_time": 85
+                    "width": 14, "height": 10,
+                    "pacgum": 42, "level_max_time": 90
                 },
                 {
                     "name": "level06",
-                    "width": 22,
-                    "height": 16,
-                    "pacgum": 115,
-                    "level_max_time": 80
+                    "width": 14, "height": 10,
+                    "pacgum": 42, "level_max_time": 90
                 },
                 {
                     "name": "level07",
-                    "width": 22,
-                    "height": 18,
-                    "pacgum": 130,
-                    "level_max_time": 80
+                    "width": 14, "height": 10,
+                    "pacgum": 42, "level_max_time": 90
                 },
                 {
                     "name": "level08",
-                    "width": 24,
-                    "height": 18,
-                    "pacgum": 145,
-                    "level_max_time": 75
+                    "width": 14, "height": 10,
+                    "pacgum": 42, "level_max_time": 90
                 },
                 {
                     "name": "level09",
-                    "width": 24,
-                    "height": 20,
-                    "pacgum": 160,
-                    "level_max_time": 75
+                    "width": 14, "height": 10,
+                    "pacgum": 42, "level_max_time": 90
                 },
                 {
                     "name": "level10",
-                    "width": 26,
-                    "height": 20,
-                    "pacgum": 180,
-                    "level_max_time": 70
+                    "width": 14, "height": 10,
+                    "pacgum": 42, "level_max_time": 90
                 }
             ],
             "lives": 3,
@@ -189,7 +169,7 @@ class Parser:
                 elif key in ('width', 'height'):
                     if (
                         (key == 'width' and
-                         (not isinstance(value, int) or value < 14))
+                            (not isinstance(value, int) or value < 14))
                         or (key == 'height' and
                             (not isinstance(value, int) or value < 10))
                     ):
@@ -231,7 +211,8 @@ class Parser:
         # check if the levels are list
         if not isinstance(levels_data, list):
             print("\nWarning: the levels must be a list, "
-                  f"using default value {self.default_conf['levels']}")
+                  "using default value "
+                  f"{json.dumps(self.default_conf['levels'], indent=4)}")
             self.data['levels'] = default_levels
 
         # check if the levels list have at least 10 levels
@@ -264,7 +245,7 @@ class Parser:
                 l.append(val)
             self.data['levels'] = l
         # check the value of each level
-        self.check_level_values(levels_data, default_levels)
+        self.check_level_values(self.data["levels"], default_levels)
 
     def parse(self) -> Dict[str, Any]:
         """Read, parse, and validate the JSON configuration file.

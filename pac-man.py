@@ -1,6 +1,7 @@
 import json
 import sys
-from src.parser import Parser
+from src.config.loader import load_config
+from src.game.game import Game
 
 
 def main() -> None:
@@ -8,7 +9,9 @@ def main() -> None:
         if len(sys.argv) != 2:
             raise ValueError("Usage: python pac-man.py <config_file>")
 
-        parser = Parser(sys.argv[1])
+        data = load_config('config.json')
+        run = Game()
+        run.run()
     except ValueError as e:
         print(e)
 
