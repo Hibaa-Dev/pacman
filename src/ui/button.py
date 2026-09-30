@@ -1,8 +1,9 @@
+from typing import Callable
 import pygame
 
 
 class Button:
-    def __init__(self, command: callable, screen, normal,
+    def __init__(self, command: Callable, screen, normal,
                  x, y, hovered = None):
         self.command = command
         self.screen = screen
