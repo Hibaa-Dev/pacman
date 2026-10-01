@@ -16,16 +16,9 @@ class Game:
         self.screen = pygame.display.set_mode((self.current_w, self.current_h))
         self.canvas = pygame.Surface((VIRTUAL_W, VIRTUAL_H))
 
-        self.state = GameState.MENU
         self.running = True
         self.main_menu = Main_menu(self.canvas)
-        self.instructions = Instructions(self.screen, self.current_w, self.current_h)
-        # self.play = ''
-        # self.state_handler = {
-        #     GameState.MENU: self.main_menu,
-        #     GameState.INSTRUCTIONS: self.instructions,
-        #     GameState.PLAY: self.play
-        # }
+        self.instructions = Instructions(self.canvas, self.current_w, self.current_h)
 
     def get_input(self) -> None:
         for event in pygame.event.get():
@@ -56,6 +49,7 @@ class Game:
         while self.running:
             self.get_input()
             self.render()
+            print(GAME_STATE)
    
             pygame.display.flip()
         pygame.quit()
