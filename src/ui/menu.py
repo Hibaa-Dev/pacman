@@ -5,14 +5,14 @@ import pygame
 
 class Main_menu:
 
-    def __init__(self, screen) -> None:
+    def __init__(self, canvas) -> None:
 
         PANEL_LEFT = 410
         PANEL_RIGHT = 1560
         self.PANEL_CENTER_X = (PANEL_LEFT + PANEL_RIGHT) // 2
-        self.screen = screen
+        self.canvas = canvas
         self.background = pygame.image.load('assets/images/menu.jpg').convert()
-        self.current_w, self.current_h = VIRTUAL_W, VIRTUAL_H 
+        self.current_w, self.current_h = VIRTUAL_W, VIRTUAL_H
         self.focused_button_index: int = 0
         self.start_game = False
         self.buttons = []
@@ -20,8 +20,7 @@ class Main_menu:
 
     def set_menu(self):
         button_w = int(self.current_w * 0.11)
-        x = self.PANEL_CENTER_X - button_w // 2   # CHANGED — centered on the panel, not the canvas
-
+        x = self.PANEL_CENTER_X - button_w // 2
         first_y = int(self.current_h * 0.35)
         gap = int(self.current_h * 0.015)
 
@@ -32,7 +31,7 @@ class Main_menu:
         ]
         current_y = first_y
         for cmd, normal, id, hovered in specs:
-            btn = Button(cmd, self.screen, normal, x, current_y, id, hovered)
+            btn = Button(cmd, self.canvas, normal, x, current_y, id, hovered)
             btn.set_size(button_w)
             btn.y = current_y
             self.buttons.append(btn)
@@ -43,7 +42,7 @@ class Main_menu:
 
     def render(self):
         bg = pygame.transform.scale(self.background, (VIRTUAL_W, VIRTUAL_H))
-        self.screen.blit(bg, (0, 0))
+        self.canvas.blit(bg, (0, 0))
         for button in self.buttons:
             button.render()
 

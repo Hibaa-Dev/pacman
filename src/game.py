@@ -1,4 +1,4 @@
-from src.ui.main_menu.menu import Main_menu
+from src.ui.menu import Main_menu
 from src.utils.global_data import VIRTUAL_H, VIRTUAL_W, GAME_STATE, GameState
 import pygame
 
@@ -17,7 +17,7 @@ class Game:
 
         self.state = GameState.MENU
         self.running = True
-        self.main_menu = Main_menu(self.screen)
+        self.main_menu = Main_menu(self.canvas)
 
     def get_input(self) -> None:
         for event in pygame.event.get():
@@ -29,15 +29,20 @@ class Game:
 
 
     def render(self):
+        self.canvas.fill((0, 0, 0))
         if GAME_STATE == GameState.MENU:
             self.main_menu.render()
+        self.scaled_canvas = pygame.transform.scale(
+            self.canvas, (self.current_w, self.current_h)
+        )
+        self.screen.blit(self.scaled_canvas, (0, 0))
 
 
     def run(self):
         while self.running:
             self.get_input()
             self.render()
-            
-            pygame.display.flip()
+   
+        pygame.display.flip()
         pygame.quit()
     
