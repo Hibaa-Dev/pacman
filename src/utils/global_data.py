@@ -10,3 +10,8 @@ class GameState(Enum):
     PAUSE = 'Pause'
     WIN = 'Win'
     LOSE = 'Lose'
+
+
+VIRTUAL_W = 2080
+VIRTUAL_H = 1136
+GAME_STATE = GameState.MENU

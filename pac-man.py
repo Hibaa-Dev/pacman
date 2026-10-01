@@ -1,7 +1,7 @@
 import json
 import sys
 from src.config.loader import load_config
-from src.game.game import Game
+from src.game import Game
 
 
 def main() -> None:
