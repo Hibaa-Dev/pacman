@@ -1,5 +1,5 @@
 from src.ui.button import Button
-from src.utils.global_data import VIRTUAL_H, VIRTUAL_W
+from src.utils.global_data import VIRTUAL_H, VIRTUAL_W, GameState, GAME_STATE
 import pygame
 
 
@@ -47,10 +47,10 @@ class Main_menu:
             button.render()
 
     def _play(self):
-        self.start_game = True
+        GAME_STATE = GameState.PLAY
 
     def _show_instructions(self):
-        pass
+        GAME_STATE = GameState.INSTRUCTIONS
 
     def treat_input(self, key: int):
         if key == pygame.K_w or key == pygame.K_UP:
