@@ -24,6 +24,11 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
+            # ADDED — without this, self.current_w/current_h stay frozen at
+            # launch-time values forever, so dragging the window to resize
+            # it would make the letterbox math below stale/wrong.
+            if event.type == pygame.VIDEORESIZE:
+                self.current_w, self.current_h = event.w, event.h
             if event.type == pygame.KEYDOWN:
                 if global_data.GAME_STATE == GameState.MENU:
                     action = self.main_menu.treat_input(event.key)
@@ -40,15 +45,27 @@ class Game:
         if global_data.GAME_STATE == GameState.INSTRUCTIONS:
             self.instructions.render()
 
-        self.scaled_canvas = pygame.transform.scale(
-            self.canvas, (self.current_w, self.current_h)
+        # CHANGED — was a non-uniform stretch to (current_w, current_h),
+        # which distorts the aspect ratio on any window that isn't
+        # exactly VIRTUAL_W:VIRTUAL_H. This now scales the canvas as one
+        # rigid block, preserving its aspect ratio, and centers it with
+        # black bars filling any leftover space (letterboxing).
+        scale = min(self.current_w / VIRTUAL_W, self.current_h / VIRTUAL_H)
+        scaled_w, scaled_h = int(VIRTUAL_W * scale), int(VIRTUAL_H * scale)
+        self.scaled_canvas = pygame.transform.smoothscale(
+            self.canvas, (scaled_w, scaled_h)
         )
-        self.screen.blit(self.scaled_canvas, (0, 0))
+
+        offset_x = (self.current_w - scaled_w) // 2
+        offset_y = (self.current_h - scaled_h) // 2
+
+        self.screen.fill((0, 0, 0))  # ADDED — paints the letterbox bars
+        self.screen.blit(self.scaled_canvas, (offset_x, offset_y))
 
     def run(self):
         while self.running:
             self.get_input()
             self.render()
-   
+
             pygame.display.flip()
         pygame.quit()
