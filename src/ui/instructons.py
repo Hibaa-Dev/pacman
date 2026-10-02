@@ -4,18 +4,15 @@ import pygame
 
 
 class Instructions:
-    def __init__(self, canvas, width, height) -> None:
+    def __init__(self, canvas) -> None:
         self.canvas = canvas
-        self.width = width
-        self.height = height
-        self.canvas_seize = self.canvas.get_seize()
-        self.img_w, self.img_h = 
         self.img = pygame.image.load('assets/images/Instructions.png')
+        self.canvas_w, self.canvas_h = self.canvas.get_size()
+        self.img_w, self.img_h = self.img.get_size()
 
     def render(self):
-
-        bg = pygame.transform.scale(self.img, (self.width, 3144))
-        self.canvas.blit(bg, (0, 0))
+        x = (self.canvas_w - self.img_w) // 2
+        self.canvas.blit(self.img, (x, 0))
 
     def treat_input(self, key):
         if key == pygame.K_ESCAPE:

@@ -9,7 +9,6 @@ class Game:
     def __init__(self):
         pygame.init()
 
-        # Screen configuration
         info = pygame.display.Info()
         self.current_w, self.current_h = (
             info.current_w, info.current_h
@@ -19,7 +18,7 @@ class Game:
 
         self.running = True
         self.main_menu = Main_menu(self.canvas)
-        self.instructions = Instructions(self.canvas, VIRTUAL_W, VIRTUAL_H)
+        self.instructions = Instructions(self.canvas)
 
     def get_input(self) -> None:
         for event in pygame.event.get():
