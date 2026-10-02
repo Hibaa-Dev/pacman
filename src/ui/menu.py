@@ -26,7 +26,7 @@ class Main_menu:
         gap = int(self.current_h * 0.015)
 
         specs = [
-            (lambda: self._play(), 'assets/images/start.jpg', "play", 'assets/images/hover_start.png'),
+            (lambda: self._play, 'assets/images/start.jpg', "play", 'assets/images/hover_start.png'),
             (lambda: self._show_instructions(), 'assets/images/Instr.jpg', "instructions", 'assets/images/hover_instru.png'),
             (lambda: exit(0), 'assets/images/Exit.jpg', 'exit', 'assets/images/hover_exit.png'),
         ]

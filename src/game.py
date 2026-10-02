@@ -14,7 +14,7 @@ class Game:
         self.current_w, self.current_h = (
             info.current_w, info.current_h
         )
-        self.screen = pygame.display.set_mode((self.current_w, self.current_h))
+        self.screen = pygame.display.set_mode((self.current_w, self.current_h), pygame.RESIZABLE)
         self.canvas = pygame.Surface((VIRTUAL_W, VIRTUAL_H))
 
         self.running = True
@@ -31,7 +31,7 @@ class Game:
                     if action:
                         action.command()
                 if global_data.GAME_STATE == GameState.INSTRUCTIONS:
-                    pass
+                    self.instructions.treat_input(event.key)
 
     def render(self):
         self.canvas.fill((0, 0, 0))
