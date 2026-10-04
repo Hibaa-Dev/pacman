@@ -1,6 +1,7 @@
 from src.utils.global_data import VIRTUAL_H, VIRTUAL_W,  GameState
-from src.utils import global_data
 from src.ui.instructons import Instructions
+from src.ui.play import Play
+from src.utils import global_data
 from src.ui.menu import Main_menu
 import pygame
 
@@ -20,6 +21,7 @@ class Game:
         self.running = True
         self.main_menu = Main_menu(self.canvas)
         self.instructions = Instructions(self.canvas, self.clock)
+        self.play = Play(self.canvas, self.clock)
 
     def get_input(self) -> None:
         for event in pygame.event.get():
@@ -28,20 +30,28 @@ class Game:
             if event.type == pygame.VIDEORESIZE:
                 self.current_w, self.current_h = event.w, event.h
             if event.type == pygame.KEYDOWN:
+
                 if global_data.GAME_STATE == GameState.MENU:
                     action = self.main_menu.treat_input(event.key)
                     if action:
                         action.command()
-                if global_data.GAME_STATE == GameState.INSTRUCTIONS:
+
+                elif global_data.GAME_STATE == GameState.INSTRUCTIONS:
                     self.instructions.treat_input(event.key)
+
+                elif global_data.GAME_STATE == GameState.PLAY:
+                    self.play.treat_input(event.key)
 
     def render(self):
         self.canvas.fill((0, 0, 0))
         if global_data.GAME_STATE == GameState.MENU:
             self.main_menu.render()
 
-        if global_data.GAME_STATE == GameState.INSTRUCTIONS:
+        elif global_data.GAME_STATE == GameState.INSTRUCTIONS:
             self.instructions.render()
+
+        elif global_data.GAME_STATE == GameState.PLAY:
+            self.play.render()
 
         scale = min(self.current_w / VIRTUAL_W, self.current_h / VIRTUAL_H)
         scaled_w, scaled_h = int(VIRTUAL_W * scale), int(VIRTUAL_H * scale)

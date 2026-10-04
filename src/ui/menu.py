@@ -12,7 +12,7 @@ class Main_menu:
         PANEL_RIGHT = 1560
         self.PANEL_CENTER_X = (PANEL_LEFT + PANEL_RIGHT) // 2
         self.canvas = canvas
-        self.background = pygame.image.load('assets/images/menu.jpg').convert()
+        self.background = pygame.image.load('assets/menu_img/menu.jpg').convert()
         self.current_w, self.current_h = VIRTUAL_W, VIRTUAL_H
         self.focused_button_index: int = 0
         self.start_game = False
@@ -26,9 +26,9 @@ class Main_menu:
         gap = int(self.current_h * 0.015)
 
         specs = [
-            (lambda: self._play, 'assets/images/start.jpg', "play", 'assets/images/hover_start.png'),
-            (lambda: self._show_instructions(), 'assets/images/Instr.jpg', "instructions", 'assets/images/hover_instru.png'),
-            (lambda: exit(0), 'assets/images/Exit.jpg', 'exit', 'assets/images/hover_exit.png'),
+            (lambda: self._play(), 'assets/menu_img/start.jpg', "play", 'assets/menu_img/hover_start.png'),
+            (lambda: self._show_instructions(), 'assets/menu_img/Instr.jpg', "instructions", 'assets/menu_img/hover_instru.png'),
+            (lambda: exit(0), 'assets/menu_img/Exit.jpg', 'exit', 'assets/menu_img/hover_exit.png'),
         ]
         current_y = first_y
         for cmd, normal, id, hovered in specs:

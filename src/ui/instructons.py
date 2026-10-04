@@ -7,12 +7,12 @@ class Instructions:
     def __init__(self, canvas, clock) -> None:
         self.canvas = canvas
         self.clock = clock
-        self.img = pygame.image.load('assets/images/Instructions.png')
+        self.img = pygame.image.load('assets/menu_img/Instructions.png')
         self.canvas_w, self.canvas_h = self.canvas.get_size()
         self.img_w, self.img_h = self.img.get_size()
-        self.header_height: int = 570
+        self.header_height: int = 550
         self.scroll_y: float = 0.0
-        self.scroll_speed: int = 15
+        self.scroll_speed: int = 7
         self.paused: bool = False
 
     def render(self):
